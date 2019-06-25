@@ -10,7 +10,7 @@ public class GitlabProjectInfoBean {
 	
 	private String description;
 
-	@JsonProperty("path_with_namespace")
+	@JsonProperty("name")
 	private String projectName;
 
 	public String getId() {

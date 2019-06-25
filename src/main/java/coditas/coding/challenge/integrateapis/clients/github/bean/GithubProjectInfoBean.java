@@ -10,10 +10,13 @@ public class GithubProjectInfoBean implements Serializable {
 	
 	private Long id;
 	
-	@JsonProperty("full_name")
+	@JsonProperty("name")
 	private String repoName;
+	
 	private String language;
+	
 	private String description;
+	
 	private boolean fork;
 
 	public Long getId() {

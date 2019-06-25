@@ -1,4 +1,4 @@
-package coditas.coding.challenge.integrateapis.api;
+package coditas.coding.challenge.integrateapis.api.bean;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import coditas.coding.challenge.integrateapis.clients.github.bean.GithubProjectInfoBean;
 import coditas.coding.challenge.integrateapis.clients.gitlab.bean.GitlabProjectInfoBean;
 
-public class AggregatedBean {
+public class IntegratedApiBean {
 
 	private String associatedUser;
 	
