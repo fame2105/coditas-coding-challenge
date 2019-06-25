@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GithubProjectInfoBean implements Serializable {
 	
-	private String id;
-	
-	private String associatedUser;   // username
+	private Long id;
 	
 	@JsonProperty("full_name")
 	private String repoName;
@@ -18,20 +16,12 @@ public class GithubProjectInfoBean implements Serializable {
 	private String description;
 	private boolean fork;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getAssociatedUser() {
-		return associatedUser;
-	}
-
-	public void setAssociatedUser(String associatedUser) {
-		this.associatedUser = associatedUser;
 	}
 
 	public String getRepoName() {
@@ -65,12 +55,12 @@ public class GithubProjectInfoBean implements Serializable {
 	public void setFork(boolean fork) {
 		this.fork = fork;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "ProjectInfoBean{" +
 				"id='" + id + '\'' +
-				", associatedUser='" + associatedUser + '\'' +
 				", fullName='" + repoName + '\'' +
 				", language='" + language + '\'' +
 				", description='" + description + '\'' +

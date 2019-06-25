@@ -1,6 +1,6 @@
 package coditas.coding.challenge.integrateapis.clients.github.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -27,7 +27,7 @@ public class GithubClientImpl implements GithubClient{
 	}
 
 	@Override
-	public List<GithubProjectInfoBean> getGithubProjectInfoByUserName(String userName) {
+	public Set<GithubProjectInfoBean> getGithubProjectInfoByUserName(String userName) {
 		String url =String.format(GET_GITHUB_PROJECT_INFO_PATH + REPOS, userName);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -35,11 +35,10 @@ public class GithubClientImpl implements GithubClient{
 		
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 		
-		ParameterizedTypeReference<List<GithubProjectInfoBean>> typeRef = new ParameterizedTypeReference<List<GithubProjectInfoBean>>() {};
+		ParameterizedTypeReference<Set<GithubProjectInfoBean>> typeRef = new ParameterizedTypeReference<Set<GithubProjectInfoBean>>() {};
 		
-		ResponseEntity<List<GithubProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, entity, typeRef);
+		ResponseEntity<Set<GithubProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, entity, typeRef);
 		
-		response.getBody().stream().forEach(bean -> bean.setAssociatedUser(userName));
 		return response.getBody();
 	}
 

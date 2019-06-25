@@ -9,12 +9,9 @@ public class GitlabProjectInfoBean {
 	private String id;
 	
 	private String description;
-	
-	private String associatedUser;   // username
 
 	@JsonProperty("path_with_namespace")
 	private String projectName;
-	
 
 	public String getId() {
 		return id;
@@ -32,14 +29,6 @@ public class GitlabProjectInfoBean {
 		this.description = description;
 	}
 
-	public String getAssociatedUser() {
-		return associatedUser;
-	}
-
-	public void setAssociatedUser(String associatedUser) {
-		this.associatedUser = associatedUser;
-	}
-
 	public String getProjectName() {
 		return projectName;
 	}
@@ -47,14 +36,12 @@ public class GitlabProjectInfoBean {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "GitlabProjectInfoBean{" +
 				"id='" + id + '\'' +
 				", description='" + description + '\'' +
-				", associatedUser='" + associatedUser + '\'' +
 				", projectName='" + projectName + '\'' +
 				'}';
 	}

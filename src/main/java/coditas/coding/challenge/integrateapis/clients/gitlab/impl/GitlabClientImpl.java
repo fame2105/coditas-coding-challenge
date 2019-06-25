@@ -1,6 +1,6 @@
 package coditas.coding.challenge.integrateapis.clients.gitlab.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -26,14 +26,13 @@ public class GitlabClientImpl implements GitlabClient {
 	}
 
 	@Override
-	public List<GitlabProjectInfoBean> getGitLabProjectInfoByUserName(String userName) {
+	public Set<GitlabProjectInfoBean> getGitLabProjectInfoByUserName(String userName) {
 		String url = String.format(GET_GITLAB_PROJECT_INFO_PATH + PROJECTS, userName);
 		
-		ParameterizedTypeReference<List<GitlabProjectInfoBean>> typeRef = new ParameterizedTypeReference<List<GitlabProjectInfoBean>>() {};
+		ParameterizedTypeReference<Set<GitlabProjectInfoBean>> typeRef = new ParameterizedTypeReference<Set<GitlabProjectInfoBean>>() {};
 
-		ResponseEntity<List<GitlabProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, null, typeRef);
-
-		response.getBody().stream().forEach(bean -> bean.setAssociatedUser(userName));
+		ResponseEntity<Set<GitlabProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, null, typeRef);
+		
 		return response.getBody();
 	}
 	
