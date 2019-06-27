@@ -1,6 +1,9 @@
 # coditas-coding-challenge
 The aim is to consume all the APIs and create a single unified API.
-
+### To run the project, execute this command -> mvn spring-boot:run
+<br>
+by default, this application will launch on port 8080, to change the port, make this entry in application.properties file : server.port:<port_number>
+<br>
 Following clients have been implemented: 
 GithubClient
 GitlabClient
