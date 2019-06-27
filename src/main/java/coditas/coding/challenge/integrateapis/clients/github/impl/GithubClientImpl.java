@@ -1,5 +1,6 @@
 package coditas.coding.challenge.integrateapis.clients.github.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import coditas.coding.challenge.integrateapis.clients.github.bean.GithubProjectInfoBean;
@@ -36,10 +38,20 @@ public class GithubClientImpl implements GithubClient{
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 		
 		ParameterizedTypeReference<Set<GithubProjectInfoBean>> typeRef = new ParameterizedTypeReference<Set<GithubProjectInfoBean>>() {};
+		ResponseEntity<Set<GithubProjectInfoBean>> response = null;
+		try{
+			response = restTemplate.exchange(url, HttpMethod.GET, entity, typeRef);	
+		} catch(HttpClientErrorException e){
+			// we might get 4XX if the username doesn't exist on github, return empty set in that case
+			return new HashSet<>();
+		} catch (Exception e){
+			return new HashSet<>();
+		}
 		
-		ResponseEntity<Set<GithubProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, entity, typeRef);
-		
-		return response.getBody();
+		if(response !=null && response.getStatusCodeValue() == 200){
+			return response.getBody();	
+		}
+		return new HashSet<>();
 	}
 
 }

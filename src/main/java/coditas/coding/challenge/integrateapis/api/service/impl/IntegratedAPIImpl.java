@@ -42,13 +42,13 @@ public class IntegratedAPIImpl implements IntegratedApi {
 			integratedApiBean = applyProjectNameFilter(integratedApiBean, projectName);
 		}
 		
+		// owned would be those projects that haven't been forked by a user, rather User is the source of origination of that repo.
 		if(owned != null){
 			integratedApiBean = applyProjectOwnerFilter(integratedApiBean, owned);
 		}
 		
 		return integratedApiBean;
 	}
-	
 
 	/**
 	 *@IntegratedApiBean integratedApiBean 

@@ -1,5 +1,6 @@
 package coditas.coding.challenge.integrateapis.clients.gitlab.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import coditas.coding.challenge.integrateapis.clients.gitlab.bean.GitlabProjectInfoBean;
@@ -30,10 +32,19 @@ public class GitlabClientImpl implements GitlabClient {
 		String url = String.format(GET_GITLAB_PROJECT_INFO_PATH + PROJECTS, userName);
 		
 		ParameterizedTypeReference<Set<GitlabProjectInfoBean>> typeRef = new ParameterizedTypeReference<Set<GitlabProjectInfoBean>>() {};
-
-		ResponseEntity<Set<GitlabProjectInfoBean>> response = restTemplate.exchange(url, HttpMethod.GET, null, typeRef);
-		
-		return response.getBody();
+		ResponseEntity<Set<GitlabProjectInfoBean>> response = null;
+		try{ 
+			response = restTemplate.exchange(url, HttpMethod.GET, null, typeRef);	
+		}catch(HttpClientErrorException e){
+			// we might get 4XX if the username doesn't exist on github, return empty set in that case
+			return new HashSet<>();
+		}catch(Exception e){
+			return new HashSet<>();
+		}
+		if(response != null && response.getStatusCodeValue() == 200){
+			return response.getBody();	
+		}
+		return new HashSet<>();
 	}
 	
 }

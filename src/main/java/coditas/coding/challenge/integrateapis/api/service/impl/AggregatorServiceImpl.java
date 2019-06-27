@@ -28,13 +28,14 @@ public class AggregatorServiceImpl implements AggregatorService {
 	private IntegratedApiBean collectData(String userName) {
 		IntegratedApiBean integratedApiBean = new IntegratedApiBean();
 		integratedApiBean.setAssociatedUser(userName);
-		integratedApiBean.setDescription("Displaying projects for userName" + userName);
-		
-		Set<GithubProjectInfoBean>  githubProjectInfoBeans = githubClient.getGithubProjectInfoByUserName(userName);
-		integratedApiBean.setGithubProjects(githubProjectInfoBeans);
+		integratedApiBean.setDescription("Displaying projects for user: " + userName);
 
 		Set<GitlabProjectInfoBean>  gitlabProjectInfoBeans = gitlabClient.getGitLabProjectInfoByUserName(userName);
 		integratedApiBean.setGitlabProjects(gitlabProjectInfoBeans);
+		
+		Set<GithubProjectInfoBean>  githubProjectInfoBeans = githubClient.getGithubProjectInfoByUserName(userName);
+		integratedApiBean.setGithubProjects(githubProjectInfoBeans);
+		
 		return integratedApiBean;
 	}
 
